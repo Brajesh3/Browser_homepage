@@ -1,42 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Browser Homepage</title>
-  <link rel="icon" href="assets/homepage.jpg">
-  <link rel="stylesheet" href="styles/style.css">
-  <script data-goatcounter="https://brajesh3.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
-  
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    transition: background-image 1s ease-in-out;
+  }
+</style>
+<title>Browser Homepage</title>
+<link rel="icon" href="assets/homepage.jpg">
+<script data-goatcounter="https://brajesh3.goatcounter.com/count" + async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
-  <div class="background" id="background"></div>
-  <div class="settings" id="settings">
-    <button id="settings-btn">⚙️</button>
-    <div class="settings-panel" id="settings-panel">
-      <h3>Settings</h3>
-      <label for="change-timing">Change Timing:</label>
-      <select id="change-timing">
-        <option value="5000">5 Seconds</option>
-        <option value="10000">10 Seconds</option>
-        <option value="15000">15 Seconds</option>
-        <option value="20000">20 Seconds</option>
-      </select>
-      <label for="image-category">Image Category:</label>
-      <select id="image-category" multiple>
-        <option value="nature">Nature</option>
-        <option value="city">City</option>
-        <option value="technology">Technology</option>
-        <option value="space">Space</option>
-        <option value="cat">Cat</option>
-        <option value="dog">Dog</option>
-        <option value="wildlife">Wildlife</option>
-      </select>
-      <input type="text" id="new-category" placeholder="Add New Category">
-      <button id="save-btn">Save</button>
-    </div>
-  </div>
-  <script src="scripts/script.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const imageKeywords = ['nature', 'wild', 'space', 'city', 'animal', 'cat', 'dog'];
+  let currentIndex = 0;
+
+  function getImageUrl(keyword) {
+    return `https://source.unsplash.com/featured/?${keyword}`;
+  }
+
+  function preloadImage(url) {
+    const img = new Image();
+    img.src = url;
+  }
+
+  function changeBackground() {
+    const keyword = imageKeywords[currentIndex];
+    const imageUrl = getImageUrl(keyword);
+    document.body.style.backgroundImage = `url('${imageUrl}')`;
+    currentIndex = (currentIndex + 1) % imageKeywords.length;
+  }
+
+  // Preload images
+  imageKeywords.forEach(keyword => preloadImage(getImageUrl(keyword)));
+
+  changeBackground(); // Initial background
+
+  setInterval(changeBackground, 10000); // Change background every 10 seconds
+});
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script defer src="https://www.googletagmanager.com/gtag/js?id={{ site.analytics.google.id }}"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function (event) {
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', '{{ G-V6PY62418Z}}');
+  });
+</script>
+
 </body>
 </html>
